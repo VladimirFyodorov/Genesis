@@ -1,5 +1,5 @@
 # Genesis
-Test task: autoCRM with Pinia + vue3 (Composition API + TypeScript)
+Test task: autoCRM with Pinia + vue3 (Composition API + TypeScript) + NestJs + Axios
 
 # Init
 ```
@@ -9,4 +9,5 @@ npm run dev
 cd ..
 cd backend
 npm install
+npm run start
 ```
