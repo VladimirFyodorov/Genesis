@@ -1,0 +1,30 @@
+* {
+  color: var(--color-main);
+}
+
+#app {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  --color-main: #3a3a3a;
+  --color-heading: #0b0b0b;
+  --color-outline: #0b0b0b;
+  --color-interface: #717171;
+  --color-active-panel: #e7e7e7;
+  --color-hover: #f5f5f5;
+  --color-call-to-action: #318bde;
+  --color-not-active: #dcdcdc;
+  --color-active: #2a78c0;
+  --color-error: #dc6466;
+  --color-ok: #079d31;
+  --color-background: #fff;
+  --color-white: #fff;
+  --color-border: #dcdcdc;
+}
