@@ -2,13 +2,21 @@
 import { computed } from '@vue/reactivity';
 import { useStore } from '../store';
 import Loader from './Loader.vue';
+import { APIService } from '../services/APIService';
 const store = useStore();
 
-const fakeFetch = () => {
+const submit = async () => {
   console.log('start submit');
   store.startSubmit();
-  const id = Math.round(Math.random()*100);
-  setTimeout(() => store.endSubmit(id), 3000);
+  const name = store.state.selectedOption;
+  if (name === 'default') return;
+
+  (new APIService).post(name)
+    .then(entity => store.endSubmit(entity))
+    .catch(err => {
+      console.log(err);
+      store.endSubmitWithErr();
+    });
 };
 
 const btnText = computed(() => {
@@ -26,7 +34,7 @@ const btnText = computed(() => {
 <template>
   <button
     type="submit"
-    @click="fakeFetch"
+    @click="submit"
     :class="store.state.formState"
     :disabled="store.btnDisabled">
     {{ btnText }}

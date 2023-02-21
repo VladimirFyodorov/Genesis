@@ -4,24 +4,27 @@ export enum FormStates {
   PENDING = 'PENDING',
 }
 
-export type EntetyNames = 'deal' | 'contact' | 'company';
-export const EntetyNamesArray: EntetyNames[] = ['deal', 'contact', 'company'];
+export type EntityNamesRu = 'Сделка' | 'Контакт' | 'Компания';
+export type EntityNamesEn = 'lead' | 'contact' | 'company';
 
-export type Options = EntetyNames | 'default';
-export const OptionsArray: Options[] = [...EntetyNamesArray, 'default'];
-export function checkIfOption(value: string | undefined): boolean {
-  if (value === undefined) return false;
-  if (value === 'deal' || value === 'contact' || value === 'company'|| value === 'default') return true;
-  return false;
-}
+export type OptionsRu = 'Не выбрано' | EntityNamesRu;
+export type OptionsEn = 'default' | EntityNamesEn;
+export const optionsMap: Map<OptionsEn, OptionsRu> = new Map([
+  ['default', 'Не выбрано'],
+  ['lead', 'Сделка'],
+  ['contact', 'Контакт'],
+  ['company', 'Компания'],
+]);
 
-export type Entety = {
+
+
+export type Entity = {
   id: number,
-  name: EntetyNames,
+  name: EntityNamesRu,
 }
 
 export interface State {
   formState: FormStates,
-  selectedOption: Options,
-  entities: Entety[],
+  selectedOption: OptionsEn,
+  entities: Entity[],
 }

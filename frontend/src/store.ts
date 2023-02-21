@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, computed } from 'vue'
-import { State, Options, FormStates } from './types/index';
+import { State, OptionsEn, OptionsRu, optionsMap, FormStates, Entity } from './types/index';
 
 
 export const useStore = defineStore('store',  () => {
@@ -13,22 +13,26 @@ export const useStore = defineStore('store',  () => {
   const btnDisabled = computed(() => state.formState !== FormStates.VALID);
   const selectDisabled = computed(() => state.formState === FormStates.PENDING);
 
-  function changeSelect(value: Options = 'default'): void {
-    state.selectedOption = value;
+  function changeSelect(option: OptionsEn = 'default'): void {
+    state.selectedOption = option;
     state.formState = state.selectedOption === 'default' ? FormStates.INVALID : FormStates.VALID;
   }
 
   function startSubmit(): void {
+    if (state.selectedOption === 'default') return;
     state.formState = FormStates.PENDING;
   }
 
-  function endSubmit(id: number): void {
+  function endSubmit(entity: Entity): void {
     if (state.selectedOption === 'default') return;
-    const entety = { id, name: state.selectedOption};
-    state.entities.push(entety);
+    state.entities.push(entity);
+    changeSelect('default');
+  }
+
+  function endSubmitWithErr(): void {
     changeSelect('default');
   }
 
 
-  return { state, btnDisabled, selectDisabled, changeSelect, startSubmit, endSubmit}
+  return { state, btnDisabled, selectDisabled, changeSelect, startSubmit, endSubmit, endSubmitWithErr}
 })

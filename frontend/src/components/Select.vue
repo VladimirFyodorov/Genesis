@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { useStore  } from '../store';
+import { OptionsEn, optionsMap } from '../types';
 const store = useStore();
 
 function handleChange(e: Event): void {
-  const value = (e.target as HTMLSelectElement ).value;
-  if (value === 'deal' || value === 'contact' || value === 'company'|| value === 'default') {
-    store.changeSelect(value);
-  }
+  const value = (e.target as HTMLSelectElement ).value as OptionsEn;
+  store.changeSelect(value);
+  // if (value === 'deal' || value === 'contact' || value === 'company'|| value === 'default') {
+  //   store.changeSelect(value);
+  // }
 }
 
 </script>
 
 <template>
   <select :value="store.state.selectedOption" @change="handleChange" :disabled="store.selectDisabled">
-    <option value="default" selected>Не выбрано</option>
-    <option value="deal">Сделка</option>
-    <option value="contact">Контакт</option>
-    <option value="company">Компания</option>
+    <template v-for="([optionEn, optionRu]) in optionsMap">
+      <option v-if="optionEn !== 'default'" :value="optionEn">{{ optionRu }}</option>
+      <option v-else :value="optionEn" selected>{{ optionRu }}</option>
+    </template>
   </select>
 </template>
 
