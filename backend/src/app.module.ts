@@ -1,7 +1,7 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CookieMiddleware } from './cookie.middleware';
+import { AuthMiddleware } from './auth.middleware';
 
 @Module({
   imports: [],
@@ -11,7 +11,7 @@ import { CookieMiddleware } from './cookie.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(CookieMiddleware)
+      .apply(AuthMiddleware)
       .forRoutes('lead');
   }
 }

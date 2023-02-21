@@ -1,8 +1,8 @@
 import { Injectable, Req, Body } from '@nestjs/common';
 import { Request } from 'express';
 import axios from 'axios';
-import { authService, AuthData, Cookies } from './AuthService';
-import { CookieService } from './CookieService';
+import { authService, AuthData } from './auth.service';
+import { CookieService, Cookies } from './cookie.service';
 import { EntityDTO, AmocrmDTO, Paths, AmocrmLeadsDTO, AmocrmContactsDTO, AmocrmCompaniesDTO } from './dto';
 
 

@@ -5,15 +5,15 @@ export interface AuthData {
   base_domain: string,
 };
 
-export interface Cookies {
-  'X-Client-Id': string
-};
-
 export class AuthService {
   #store: Map<string, AuthData>;
 
   constructor() {
     this.#store = new Map<string, AuthData>();
+  }
+
+  has(clientId: string): boolean {
+    return this.#store.has(clientId);
   }
 
   async get(clientId: string): Promise<AuthData> {

@@ -1,5 +1,9 @@
 import { Request } from 'express';
 
+export interface Cookies {
+  'X-Client-Id': string
+};
+
 
 export class CookieService {
   static cookieParser(req: Request): Object {
