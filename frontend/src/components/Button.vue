@@ -6,7 +6,6 @@ import { APIService } from '../services/APIService';
 const store = useStore();
 
 const submit = async () => {
-  console.log('start submit');
   store.startSubmit();
   const name = store.state.selectedOption;
   if (name === 'default') return;

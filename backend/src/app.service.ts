@@ -23,7 +23,7 @@ export class AppService {
     const name = body.name;
     const data = { "name": [name] };
     const config =  { headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" } };
-    const amocrmData = (await axios.post(url, data, config)).data;
+    const amocrmData = (await axios.post(url, data, config)).data as AmocrmDTO;
     return { amocrmData, name };
   }
 
