@@ -9,13 +9,7 @@ import { EntityDTO, AmocrmDTO, Paths, AmocrmLeadsDTO, AmocrmContactsDTO, AmocrmC
 
 @Injectable()
 export class AppService {
-  async auth(@Req() req: Request): Promise<AuthData> {
-    const userId = (CookieService.cookieParser(req) as Cookies)['X-Client-Id'];
-    const authData = authService.update(userId)
-    return authData;
-  }
-
-  async post(@Req() req: Request, @Body() body: EntityDTO, path: Paths): Promise<{ amocrmData: AmocrmDTO, name: string}> {
+  async #post(@Req() req: Request, @Body() body: EntityDTO, path: Paths): Promise<{ amocrmData: AmocrmDTO, name: string}> {
     const userId = (CookieService.cookieParser(req) as Cookies)['X-Client-Id'];
     const authData = await authService.get(userId)
     const url = `https://${authData.base_domain}/api/v4/${path}`;
@@ -29,21 +23,21 @@ export class AppService {
 
   async postLead(@Req() req: Request, @Body() body: EntityDTO): Promise<{ id: number, name: string }> {
     const path = 'leads';
-    const { amocrmData, name } = await this.post(req, body, path);
+    const { amocrmData, name } = await this.#post(req, body, path);
     const id = (amocrmData as AmocrmLeadsDTO)._embedded[path][0].id;
     return { id, name }
   }
 
   async postContact(@Req() req: Request, @Body() body: EntityDTO): Promise<{ id: number, name: string }> {
     const path = 'contacts';
-    const { amocrmData, name } = await this.post(req, body, path);
+    const { amocrmData, name } = await this.#post(req, body, path);
     const id = (amocrmData as AmocrmContactsDTO)._embedded[path][0].id;
     return { id, name }
   }
 
   async postCompany(@Req() req: Request, @Body() body: EntityDTO): Promise<{ id: number, name: string }> {
     const path = 'companies';
-    const { amocrmData, name } = await this.post(req, body, path);
+    const { amocrmData, name } = await this.#post(req, body, path);
     const id = (amocrmData as AmocrmCompaniesDTO)._embedded[path][0].id;
     return { id, name }
   }
